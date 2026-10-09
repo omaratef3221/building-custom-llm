@@ -1,11 +1,15 @@
 import torch
 import torch.nn as nn
 
-def create_embedding_layer(vocab_size: int, d_model: int):
-    return nn.Embedding(vocab_size, d_model)
-3
-def embed_tokens(embedding_layer: nn.Embedding, tokens: torch.tensor, d_model: int):
-    return embedding_layer(tokens) * torch.sqrt(torch.tensor(d_model))
+import math
 
+class EmbeddingBlock(nn.Module):
+  def __init__(self, vocab_size, d_model):
+    super(EmbeddingBlock, self).__init__()
+    self.vocab_size = vocab_size
+    self.d_model = d_model
+    self.sqrt_d_model = math.sqrt(d_model)
+    self.embeddinglayer = nn.Embedding(vocab_size, d_model)
 
-
+  def forward(self, x: torch.Tensor):
+    return self.embeddinglayer(x) * self.sqrt_d_model
