@@ -8,7 +8,6 @@ class LayerNorm(nn.Module):
         self.eps = eps
 
     def forward(self, x):
-        print(x.shape)
         sigma = torch.std(x, dim = -1).unsqueeze(-1)
         mean = torch.mean(x, dim = -1).unsqueeze(-1)
         
